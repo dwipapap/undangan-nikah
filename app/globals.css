@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-gold: #d4af37;
+  --color-cream: #fffdf5;
+  --color-ivory: #faf7ee;
+  --color-charcoal: #2c2c2c;
+  --color-rose: #f5e6e0;
+  --color-muted: #8b7e74;
+}
+
+html,
+body {
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Decorative ornament line */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--color-gold);
+}
+.ornament::before,
+.ornament::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  max-width: 60px;
+  background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+}
+
+.section-heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.script-heading {
+  font-family: var(--font-great-vibes), cursive;
+  color: var(--color-gold);
+}
+
+/* Hide scroll on body when overlay is open */
+.no-scroll {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+/* Subtle gold gradient text */
+.gold-text {
+  background: linear-gradient(135deg, #d4af37 0%, #f5d97a 50%, #b8902e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Lightbox fix for body */
+.yarl__container {
+  background: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Mantine + Tailwind reset compat */
+.mantine-app-container {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}

@@ -1,0 +1,48 @@
+{
+  "name": "wedding-invitation",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "postinstall": "prisma generate || echo skip"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "@mantine/core": "^7.13.5",
+    "@mantine/dates": "^7.13.5",
+    "@mantine/dropzone": "^7.13.5",
+    "@mantine/form": "^7.13.5",
+    "@mantine/hooks": "^7.13.5",
+    "@mantine/modals": "^7.13.5",
+    "@mantine/notifications": "^7.13.5",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.46.1",
+    "@tabler/icons-react": "^3.21.0",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^11.11.17",
+    "lucide-react": "^0.454.0",
+    "next": "15.0.3",
+    "next-auth": "^4.24.10",
+    "qrcode.react": "^4.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "yet-another-react-lightbox": "^3.21.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  }
+}

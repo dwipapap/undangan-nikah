@@ -1,0 +1,42 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        gold: "#D4AF37",
+        cream: "#FFFDF5",
+        ivory: "#FAF7EE",
+        charcoal: "#2C2C2C",
+        rose: "#F5E6E0",
+        muted: "#8B7E74",
+      },
+      fontFamily: {
+        display: ["var(--font-cormorant)", "serif"],
+        script: ["var(--font-great-vibes)", "cursive"],
+        body: ["var(--font-poppins)", "sans-serif"],
+      },
+      keyframes: {
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+      },
+      animation: {
+        "fade-up": "fade-up 0.8s ease-out forwards",
+        shimmer: "shimmer 3s linear infinite",
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;

@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_supabase_supabase__list_projects",
+      "mcp__plugin_supabase_supabase__get_cost",
+      "mcp__plugin_supabase_supabase__confirm_cost",
+      "mcp__plugin_supabase_supabase__create_project",
+      "mcp__plugin_supabase_supabase__get_project_url",
+      "mcp__plugin_supabase_supabase__get_publishable_keys",
+      "PowerShell(npm install *)",
+      "mcp__plugin_supabase_supabase__apply_migration",
+      "mcp__plugin_supabase_supabase__execute_sql",
+      "PowerShell(node -e \"const b=require\\('bcryptjs'\\); console.log\\(b.hashSync\\('admin123', 10\\)\\)\")",
+      "PowerShell(npm run *)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing -TimeoutSec 30; \"HOME: $\\($r.StatusCode\\)\" } catch { \"HOME ERROR: $\\($_.Exception.Message\\)\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/tamu-undangan-x7k2\" -UseBasicParsing -TimeoutSec 30; \"INVITE: $\\($r.StatusCode\\)\" } catch { \"INVITE ERROR: $\\($_.Exception.Message\\)\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/admin/login\" -UseBasicParsing -TimeoutSec 30; \"LOGIN: $\\($r.StatusCode\\)\" } catch { \"LOGIN ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/tamu-undangan-x7k2\" -UseBasicParsing -TimeoutSec 60; \"INVITE: $\\($r.StatusCode\\)\" } catch { \"INVITE ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/admin\" -UseBasicParsing -TimeoutSec 30 -MaximumRedirection 0; \"ADMIN: $\\($r.StatusCode\\)\" } catch { \"ADMIN: $\\($_.Exception.Response.StatusCode\\)\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/settings\" -UseBasicParsing -TimeoutSec 30; \"API SETTINGS: $\\($r.StatusCode\\) - $\\($r.Content.Substring\\(0, [Math]::Min\\(150, $r.Content.Length\\)\\)\\)\" } catch { \"API SETTINGS ERROR: $\\($_.Exception.Message\\)\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/photos\" -UseBasicParsing -TimeoutSec 30; \"API PHOTOS: $\\($r.StatusCode\\) - len $\\($r.Content.Length\\)\" } catch { \"API PHOTOS ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/admin\" -UseBasicParsing -TimeoutSec 30 -MaximumRedirection 0; \"ADMIN: $\\($r.StatusCode\\)\" } catch { \"ADMIN: $\\($_.Exception.Response.StatusCode.value__\\) -> $\\($_.Exception.Response.Headers.Location\\)\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/guests\" -UseBasicParsing -TimeoutSec 30; \"GUESTS: $\\($r.StatusCode\\)\" } catch { \"GUESTS: $\\($_.Exception.Response.StatusCode.value__\\) \\(expected 401\\)\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/wishes\" -UseBasicParsing -TimeoutSec 30; \"WISHES: $\\($r.StatusCode\\) - len $\\($r.Content.Length\\)\" } catch { \"WISHES ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(npx tsc --noEmit 2>&1 | Select-Object -First 80)",
+      "PowerShell(npx tsc --noEmit 2>&1 | Select-Object -First 60)",
+      "mcp__plugin_supabase_supabase__get_advisors",
+      "PowerShell(Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/settings\" -UseBasicParsing -TimeoutSec 30; \"API SETTINGS: $\\($r.StatusCode\\)\" } catch { \"API SETTINGS ERROR: $\\($_.Exception.Message\\)\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/tamu-undangan-x7k2\" -UseBasicParsing -TimeoutSec 60; \"INVITE: $\\($r.StatusCode\\)\" } catch { \"INVITE ERROR: $\\($_.Exception.Message\\)\" })"
+    ]
+  }
+}
