@@ -3,12 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  IconBrandWhatsapp,
   IconArrowUp,
   IconMusic,
   IconPlayerPause,
 } from "@tabler/icons-react";
-import { whatsappShareUrl } from "@/lib/utils";
 
 export function FloatingActions({
   musicUrl,
@@ -57,14 +55,6 @@ export function FloatingActions({
     }
   }
 
-  function shareWhatsApp() {
-    const url = typeof window !== "undefined" ? window.location.href : "";
-    window.open(
-      whatsappShareUrl(`Halo, saya ingin berbagi undangan pernikahan untuk ${guestName}:`, url),
-      "_blank"
-    );
-  }
-
   function scrollTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -86,15 +76,6 @@ export function FloatingActions({
           </motion.button>
         )}
       </AnimatePresence>
-
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        onClick={shareWhatsApp}
-        className="bg-green-500 text-white rounded-full p-3 shadow-lg hover:bg-green-600 transition"
-        aria-label="Share WhatsApp"
-      >
-        <IconBrandWhatsapp size={20} />
-      </motion.button>
 
       {musicUrl && (
         <motion.button
