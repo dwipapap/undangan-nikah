@@ -16,6 +16,7 @@ export default function PhotosPage() {
           endpoint="/api/photos"
           folder="couple"
           emptyMessage="Belum ada foto. Klik 'Tambah Foto' untuk upload."
+          maxItems={1}
         />
       </Stack>
     </DashboardShell>

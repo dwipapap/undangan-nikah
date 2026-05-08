@@ -21,30 +21,27 @@ export function WeFoundLoveSection({
         </Reveal>
 
         {photos.length > 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-14">
-            {photos.map((p, idx) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-md"
-              >
-                <Image
-                  src={p.image_url}
-                  alt={p.caption ?? ""}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                {p.caption && (
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-cream text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                    {p.caption}
-                  </div>
-                )}
-              </motion.div>
-            ))}
+          <div className="flex justify-center mb-14">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8 }}
+              className="group relative w-full max-w-[400px] aspect-[4/5] overflow-hidden rounded-t-[100px] rounded-b-3xl shadow-xl border-4 border-white"
+            >
+              <Image
+                src={photos[0].image_url}
+                alt={photos[0].caption ?? "We Found Love"}
+                fill
+                sizes="(max-width: 768px) 100vw, 400px"
+                className="object-cover transition-transform duration-[1.5s] ease-in-out group-hover:scale-110"
+              />
+              {photos[0].caption && (
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 text-cream opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <p className="font-display tracking-wide">{photos[0].caption}</p>
+                </div>
+              )}
+            </motion.div>
           </div>
         )}
 

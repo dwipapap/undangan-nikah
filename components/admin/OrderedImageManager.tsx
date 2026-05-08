@@ -41,9 +41,10 @@ interface Props {
   endpoint: string; // e.g. "/api/photos" or "/api/gallery"
   folder: string;
   emptyMessage: string;
+  maxItems?: number;
 }
 
-export function OrderedImageManager({ endpoint, folder, emptyMessage }: Props) {
+export function OrderedImageManager({ endpoint, folder, emptyMessage, maxItems }: Props) {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [opened, { open, close }] = useDisclosure(false);
@@ -155,9 +156,11 @@ export function OrderedImageManager({ endpoint, folder, emptyMessage }: Props) {
   return (
     <Stack gap="lg">
       <Group justify="flex-end">
-        <Button leftSection={<IconPlus size={16} />} onClick={openCreate}>
-          Tambah Foto
-        </Button>
+        {(!maxItems || items.length < maxItems) && (
+          <Button leftSection={<IconPlus size={16} />} onClick={openCreate}>
+            Tambah Foto
+          </Button>
+        )}
       </Group>
 
       {loading ? (
