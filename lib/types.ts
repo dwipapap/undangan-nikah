@@ -16,6 +16,9 @@ export interface WeddingSettings {
   bride_instagram: string | null;
   wedding_date: string | null;
   hero_image: string | null;
+  overlay_top_floral_image: string | null;
+  overlay_bottom_floral_image: string | null;
+  overlay_center_image: string | null;
   quote_text: string | null;
   quote_source: string | null;
   akad_day: string | null;

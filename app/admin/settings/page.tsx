@@ -102,6 +102,37 @@ export default function SettingsPage() {
 
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="md">
+            Opening Overlay Assets
+          </Title>
+          <Stack gap="md">
+            <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
+              <ImageUpload
+                label="Floral Top"
+                value={data.overlay_top_floral_image ?? null}
+                onChange={(url) => update("overlay_top_floral_image", url)}
+                folder="theme"
+                height={150}
+              />
+              <ImageUpload
+                label="Center Illustration (e.g., Ship)"
+                value={data.overlay_center_image ?? null}
+                onChange={(url) => update("overlay_center_image", url)}
+                folder="theme"
+                height={150}
+              />
+              <ImageUpload
+                label="Floral Bottom"
+                value={data.overlay_bottom_floral_image ?? null}
+                onChange={(url) => update("overlay_bottom_floral_image", url)}
+                folder="theme"
+                height={150}
+              />
+            </SimpleGrid>
+          </Stack>
+        </Card>
+
+        <Card withBorder p="lg" radius="md">
+          <Title order={4} mb="md">
             Quote / Hadist
           </Title>
           <Stack gap="md">

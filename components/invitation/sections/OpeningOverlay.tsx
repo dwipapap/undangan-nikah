@@ -23,11 +23,12 @@ export function OpeningOverlay({
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdfbf7] via-[#f4ede4] to-[#d6dfeb]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.7 }}
     >
+      {/* Background Texture/Image (Optional) */}
       {settings.hero_image && (
         <Image
           src={settings.hero_image}
@@ -35,47 +36,71 @@ export function OpeningOverlay({
           fill
           sizes="100vw"
           priority
-          className="object-cover"
+          className="object-cover opacity-20 mix-blend-multiply pointer-events-none"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/85" />
+
+      {/* Top Floral Border */}
+      <div 
+        className="absolute top-0 left-0 w-full h-48 pointer-events-none bg-top bg-contain bg-no-repeat opacity-80" 
+        style={{ backgroundImage: `url('${settings.overlay_top_floral_image || '/images/floral-top.png'}')` }}
+      />
+
+      {/* Bottom Floral Border */}
+      <div 
+        className="absolute bottom-0 left-0 w-full h-64 pointer-events-none bg-bottom bg-contain bg-no-repeat opacity-80" 
+        style={{ backgroundImage: `url('${settings.overlay_bottom_floral_image || '/images/floral-bottom.png'}')` }}
+      />
 
       <motion.div
-        className="relative z-10 text-center px-6 py-10 max-w-md"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        className="relative z-10 flex flex-col items-center text-center px-6 py-10 w-full max-w-md mt-10"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        <p className="text-cream/80 tracking-[0.4em] text-xs sm:text-sm mb-4 uppercase">
-          The Wedding of
+        {/* Center Illustration */}
+        <div className="relative w-48 h-48 sm:w-56 sm:h-56 mb-6 opacity-80 mix-blend-multiply">
+          <Image
+            src={settings.overlay_center_image || "/images/ship-illustration.png"}
+            alt="Illustration"
+            fill
+            className="object-contain"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
+
+        <p className="text-[#2c3746] tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs mb-4 uppercase font-medium">
+          Wedding Invitation
         </p>
-        <h1 className="script-heading text-5xl sm:text-7xl text-cream mb-2 leading-tight">
-          {settings.groom_name}
-        </h1>
-        <p className="text-cream/80 text-2xl sm:text-3xl font-display italic mb-2">&</p>
-        <h1 className="script-heading text-5xl sm:text-7xl text-cream mb-6 leading-tight">
-          {settings.bride_name}
-        </h1>
+        
+        <div className="flex items-center justify-center flex-wrap gap-x-4 mb-8">
+          <h1 className="script-heading text-5xl sm:text-7xl text-[#1e2733] leading-none capitalize">
+            {settings.groom_name}
+          </h1>
+          <span className="script-heading text-4xl sm:text-5xl text-[#1e2733]">&</span>
+          <h1 className="script-heading text-5xl sm:text-7xl text-[#1e2733] leading-none capitalize">
+            {settings.bride_name}
+          </h1>
+        </div>
 
-        <div className="ornament my-6 max-w-[180px] mx-auto" />
-
-        <p className="text-cream/90 text-sm sm:text-base mb-8">
-          {formatDateID(settings.wedding_date)}
-        </p>
-
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 mb-6">
-          <p className="text-cream/70 text-xs uppercase tracking-widest mb-2">Kepada Yth.</p>
-          <p className="text-cream font-display text-2xl">{guest.name}</p>
-          <p className="text-cream/70 text-xs mt-2 italic">di tempat</p>
+        <div className="flex flex-col items-center justify-center mt-4 mb-10 space-y-3">
+          <p className="text-[#2c3746]/80 text-[11px] sm:text-xs uppercase tracking-widest font-medium">
+            Kepada Yth,
+          </p>
+          <p className="text-[#1e2733] font-serif text-lg sm:text-xl font-medium tracking-wide">
+            {guest.name}
+          </p>
         </div>
 
         <motion.button
           onClick={onOpen}
-          className="inline-flex items-center gap-2 bg-gold text-charcoal hover:bg-cream transition-colors px-8 py-3 rounded-full font-medium tracking-wide shadow-lg"
-          whileHover={{ scale: 1.04 }}
+          className="inline-flex items-center gap-2 bg-[#2c3746] text-white hover:bg-[#1e2733] transition-colors px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-[11px] sm:text-xs uppercase font-semibold tracking-[0.15em] shadow-lg shadow-black/10"
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
         >
-          <IconMail size={18} />
+          <IconMail size={16} stroke={2} />
           Buka Undangan
         </motion.button>
       </motion.div>
