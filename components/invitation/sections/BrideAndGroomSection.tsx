@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { IconBrandInstagram } from "@tabler/icons-react";
+import { IconBrandInstagram, IconFlower } from "@tabler/icons-react";
 import type { WeddingSettings } from "@/lib/types";
 import { Reveal } from "../Reveal";
 
@@ -32,8 +32,29 @@ function PersonCard({
       className="text-center"
     >
       {photo && (
-        <div className="relative w-44 h-44 sm:w-56 sm:h-56 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-gold/30 shadow-lg">
-          <Image src={photo} alt={name} fill sizes="220px" className="object-cover" />
+        <div className="relative inline-block mx-auto mb-8">
+          <div className="relative z-10 w-48 h-64 sm:w-60 sm:h-80 mx-auto rounded-t-full rounded-b-full overflow-hidden ring-4 ring-white shadow-xl">
+            <Image src={photo} alt={name} fill sizes="240px" className="object-cover" />
+          </div>
+          
+          {/* Floral Ornament Placeholder */}
+          <div 
+            className={`absolute top-1/2 -translate-y-1/2 ${
+              side === "left" ? "-left-16 sm:-left-24" : "-right-16 sm:-right-24"
+            } w-32 h-48 sm:w-40 sm:h-56 pointer-events-none z-0 text-gold/40 flex items-center justify-center`}
+            style={{
+              transform: side === "left" ? 'scaleX(-1)' : 'none',
+            }}
+          >
+            {/* You can replace this SVG with a real floral PNG ornament like the reference image */}
+            <svg viewBox="0 0 100 150" fill="currentColor" className="w-full h-full drop-shadow-md">
+              <path d="M50,150 C50,150 40,100 20,80 C0,60 10,30 30,20 C50,10 70,30 80,50 C90,70 100,100 50,150 Z" opacity="0.3"/>
+              <path d="M50,150 C50,150 60,110 80,90 C100,70 90,40 70,30 C50,20 30,40 20,60 C10,80 0,110 50,150 Z" opacity="0.5"/>
+              <circle cx="50" cy="50" r="15" fill="#d4af37" opacity="0.8"/>
+              <path d="M50,150 Q45,100 30,50" stroke="currentColor" strokeWidth="2" fill="none"/>
+              <path d="M50,150 Q55,100 70,50" stroke="currentColor" strokeWidth="2" fill="none"/>
+            </svg>
+          </div>
         </div>
       )}
       <h3 className="script-heading text-4xl sm:text-5xl mb-3">{name}</h3>
