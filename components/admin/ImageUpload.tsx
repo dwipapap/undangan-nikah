@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
-import { Button, Group, Stack, Text, FileButton } from "@mantine/core";
-import { IconUpload, IconTrash } from "@tabler/icons-react";
+import { Button, Group, Stack, Text, FileButton, Modal, Slider, Box } from "@mantine/core";
+import { IconUpload, IconTrash, IconCrop } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
+import Cropper from "react-easy-crop";
 import { uploadFile } from "@/lib/api-client";
+import getCroppedImg from "@/lib/cropImage";
 
 interface Props {
   value: string | null;
@@ -14,6 +16,7 @@ interface Props {
   folder?: string;
   height?: number;
   accept?: string;
+  aspectRatio?: number;
 }
 
 export function ImageUpload({
@@ -23,16 +26,45 @@ export function ImageUpload({
   folder = "misc",
   height = 160,
   accept = "image/*",
+  aspectRatio = 1, // Default aspect ratio to 1:1, can be overridden
 }: Props) {
   const [uploading, setUploading] = useState(false);
+  const [cropModalOpened, setCropModalOpened] = useState(false);
+  const [selectedFileUrl, setSelectedFileUrl] = useState<string | null>(null);
 
-  async function handleFile(file: File | null) {
+  // Cropper states
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+
+  function handleFileSelect(file: File | null) {
     if (!file) return;
+    const url = URL.createObjectURL(file);
+    setSelectedFileUrl(url);
+    setCropModalOpened(true);
+    setZoom(1);
+    setCrop({ x: 0, y: 0 });
+  }
+
+  const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  async function handleCropAndUpload() {
+    if (!selectedFileUrl || !croppedAreaPixels) return;
+
     setUploading(true);
     try {
-      const { url } = await uploadFile(file, folder);
+      const croppedFile = await getCroppedImg(selectedFileUrl, croppedAreaPixels);
+      if (!croppedFile) throw new Error("Gagal memproses gambar");
+
+      const { url } = await uploadFile(croppedFile, folder);
       onChange(url);
       notifications.show({ message: "Upload berhasil", color: "green" });
+      
+      setCropModalOpened(false);
+      URL.revokeObjectURL(selectedFileUrl);
+      setSelectedFileUrl(null);
     } catch (e) {
       notifications.show({ message: (e as Error).message, color: "red" });
     } finally {
@@ -40,70 +72,129 @@ export function ImageUpload({
     }
   }
 
+  function handleCancelCrop() {
+    setCropModalOpened(false);
+    if (selectedFileUrl) {
+      URL.revokeObjectURL(selectedFileUrl);
+      setSelectedFileUrl(null);
+    }
+  }
+
   return (
-    <Stack gap="xs">
-      {label && (
-        <Text size="sm" fw={500}>
-          {label}
-        </Text>
-      )}
-      {value ? (
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            height,
-            borderRadius: 8,
-            overflow: "hidden",
-            background: "#f1f1f1",
-          }}
-        >
-          <Image src={value} alt="upload" fill style={{ objectFit: "cover" }} />
-        </div>
-      ) : (
-        <div
-          style={{
-            width: "100%",
-            height,
-            borderRadius: 8,
-            background: "#fafafa",
-            border: "1px dashed #ddd",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#999",
-            fontSize: 13,
-          }}
-        >
-          Belum ada gambar
-        </div>
-      )}
-      <Group>
-        <FileButton onChange={handleFile} accept={accept}>
-          {(props) => (
+    <>
+      <Stack gap="xs">
+        {label && (
+          <Text size="sm" fw={500}>
+            {label}
+          </Text>
+        )}
+        {value ? (
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              height,
+              borderRadius: 8,
+              overflow: "hidden",
+              background: "#f1f1f1",
+            }}
+          >
+            <Image src={value} alt="upload" fill style={{ objectFit: "cover" }} />
+          </div>
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height,
+              borderRadius: 8,
+              background: "#fafafa",
+              border: "1px dashed #ddd",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#999",
+              fontSize: 13,
+            }}
+          >
+            Belum ada gambar
+          </div>
+        )}
+        <Group>
+          <FileButton onChange={handleFileSelect} accept={accept}>
+            {(props) => (
+              <Button
+                {...props}
+                leftSection={<IconUpload size={14} />}
+                variant="light"
+                size="xs"
+              >
+                {value ? "Ganti" : "Upload"}
+              </Button>
+            )}
+          </FileButton>
+          {value && (
             <Button
-              {...props}
-              loading={uploading}
-              leftSection={<IconUpload size={14} />}
-              variant="light"
+              color="red"
+              variant="subtle"
               size="xs"
+              leftSection={<IconTrash size={14} />}
+              onClick={() => onChange(null)}
             >
-              {value ? "Ganti" : "Upload"}
+              Hapus
             </Button>
           )}
-        </FileButton>
-        {value && (
-          <Button
-            color="red"
-            variant="subtle"
-            size="xs"
-            leftSection={<IconTrash size={14} />}
-            onClick={() => onChange(null)}
-          >
-            Hapus
-          </Button>
-        )}
-      </Group>
-    </Stack>
+        </Group>
+      </Stack>
+
+      <Modal
+        opened={cropModalOpened}
+        onClose={handleCancelCrop}
+        title="Sesuaikan Gambar"
+        size="lg"
+        centered
+        closeOnClickOutside={!uploading}
+        closeOnEscape={!uploading}
+        withCloseButton={!uploading}
+      >
+        <Stack gap="md">
+          <Box pos="relative" w="100%" h={400} bg="dark.7" style={{ borderRadius: 8, overflow: 'hidden' }}>
+            {selectedFileUrl && (
+              <Cropper
+                image={selectedFileUrl}
+                crop={crop}
+                zoom={zoom}
+                aspect={aspectRatio}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+              />
+            )}
+          </Box>
+          <Stack gap={4}>
+            <Text size="sm" fw={500}>Zoom</Text>
+            <Slider
+              value={zoom}
+              min={1}
+              max={3}
+              step={0.1}
+              onChange={setZoom}
+              disabled={uploading}
+            />
+          </Stack>
+          <Group justify="flex-end" mt="md">
+            <Button variant="default" onClick={handleCancelCrop} disabled={uploading}>
+              Batal
+            </Button>
+            <Button 
+              onClick={handleCropAndUpload} 
+              loading={uploading}
+              leftSection={<IconCrop size={16} />}
+            >
+              Crop & Upload
+            </Button>
+          </Group>
+        </Stack>
+      </Modal>
+    </>
   );
 }
