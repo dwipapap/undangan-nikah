@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --color-gold: #d4af37;
-  --color-cream: #fffdf5;
+  --color-gold: #383f54;
+  --color-cream: #fdfbf2;
   --color-ivory: #faf7ee;
   --color-charcoal: #2c2c2c;
   --color-rose: #f5e6e0;
@@ -55,7 +55,7 @@ body {
 
 /* Subtle gold gradient text */
 .gold-text {
-  background: linear-gradient(135deg, #d4af37 0%, #f5d97a 50%, #b8902e 100%);
+  background: linear-gradient(135deg, #383f54 0%, #525a73 50%, #252a38 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
