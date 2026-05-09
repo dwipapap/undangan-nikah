@@ -15,11 +15,6 @@ export function WeFoundLoveSection({
   return (
     <section className="py-20 sm:py-28 px-6 bg-gradient-to-b from-cream to-ivory">
       <div className="max-w-5xl mx-auto text-center">
-        <Reveal>
-          <p className="script-heading text-5xl sm:text-6xl mb-2">We Found Love</p>
-          <div className="ornament max-w-[160px] mx-auto mb-12" />
-        </Reveal>
-
         {photos.length > 0 && (
           <div className="flex justify-center mb-14">
             <motion.div
@@ -44,6 +39,11 @@ export function WeFoundLoveSection({
             </motion.div>
           </div>
         )}
+
+        <Reveal>
+          <p className="script-heading text-5xl sm:text-6xl mb-2">We Found Love</p>
+          <div className="ornament max-w-[160px] mx-auto mb-12" />
+        </Reveal>
 
         {settings.quote_text && (
           <Reveal delay={0.2}>
