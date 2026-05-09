@@ -7,7 +7,7 @@ import { formatDateID } from "@/lib/utils";
 
 export function HeroSection({ settings }: { settings: WeddingSettings }) {
   return (
-    <section className="relative w-full h-[80vh] sm:h-screen overflow-hidden">
+    <section className="relative w-full h-[100dvh] overflow-hidden">
       {settings.hero_image && (
         <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
