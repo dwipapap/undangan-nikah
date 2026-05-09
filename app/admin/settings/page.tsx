@@ -204,6 +204,17 @@ export default function SettingsPage() {
 
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="md">
+            Acara — Background
+          </Title>
+          <ImageUpload
+            label="Background Image (Floral/Frame)"
+            value={data.acara_background_image ?? null}
+            onChange={(url) => update("acara_background_image", url)}
+            folder="theme"
+            height={200}
+          />
+          <Divider my="lg" />
+          <Title order={4} mb="md">
             Acara — Akad Nikah
           </Title>
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">

@@ -30,6 +30,7 @@ export interface WeddingSettings {
   resepsi_maps_url: string | null;
   gift_message: string | null;
   music_url: string | null;
+  acara_background_image: string | null;
   created_at: string;
   updated_at: string;
 }
