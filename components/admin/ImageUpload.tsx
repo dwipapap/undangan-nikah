@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Image from "next/image";
-import { Button, Group, Stack, Text, FileButton, Modal, Slider, Box } from "@mantine/core";
+import { Button, Group, Stack, Text, FileButton, Modal, Slider, Box, Select } from "@mantine/core";
 import { IconUpload, IconTrash, IconCrop } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 import Cropper from "react-easy-crop";
@@ -31,6 +31,9 @@ export function ImageUpload({
   const [uploading, setUploading] = useState(false);
   const [cropModalOpened, setCropModalOpened] = useState(false);
   const [selectedFileUrl, setSelectedFileUrl] = useState<string | null>(null);
+  
+  // Aspect ratio state
+  const [selectedAspect, setSelectedAspect] = useState<string>(aspectRatio ? aspectRatio.toString() : "1");
 
   // Cropper states
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -157,13 +160,30 @@ export function ImageUpload({
         withCloseButton={!uploading}
       >
         <Stack gap="md">
+          <Select
+            label="Rasio Aspek (Aspect Ratio)"
+            value={selectedAspect}
+            onChange={(val) => setSelectedAspect(val || "1")}
+            data={[
+              { label: "1:1 (Square)", value: "1" },
+              { label: "9:16 (Mobile Portrait)", value: (9 / 16).toString() },
+              { label: "9:18 (Mobile Tall)", value: (9 / 18).toString() },
+              { label: "9:19.5 (Mobile X-Tall)", value: (9 / 19.5).toString() },
+              { label: "9:20 (Mobile XX-Tall)", value: (9 / 20).toString() },
+              { label: "16:9 (Landscape)", value: (16 / 9).toString() },
+              { label: "4:3 (Landscape)", value: (4 / 3).toString() },
+              { label: "3:4 (Portrait)", value: (3 / 4).toString() },
+              { label: "Bebas (Free Crop)", value: "0" },
+            ]}
+            disabled={uploading}
+          />
           <Box pos="relative" w="100%" h={400} bg="dark.7" style={{ borderRadius: 8, overflow: 'hidden' }}>
             {selectedFileUrl && (
               <Cropper
                 image={selectedFileUrl}
                 crop={crop}
                 zoom={zoom}
-                aspect={aspectRatio}
+                aspect={selectedAspect === "0" ? undefined : parseFloat(selectedAspect)}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}
