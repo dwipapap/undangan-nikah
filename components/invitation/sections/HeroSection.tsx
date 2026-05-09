@@ -33,9 +33,15 @@ export function HeroSection({ settings }: { settings: WeddingSettings }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        <p className="script-heading text-4xl sm:text-5xl mb-2">
-          {settings.groom_name} & {settings.bride_name}
-        </p>
+        <div className="flex flex-col items-center justify-center mb-4 space-y-1">
+          <h1 className="script-heading text-5xl sm:text-6xl leading-none capitalize text-center">
+            {settings.groom_name}
+          </h1>
+          <span className="script-heading text-4xl sm:text-5xl">&</span>
+          <h1 className="script-heading text-5xl sm:text-6xl leading-none capitalize text-center">
+            {settings.bride_name}
+          </h1>
+        </div>
         <p className="tracking-[0.3em] text-xs sm:text-sm uppercase opacity-90">
           {formatDateID(settings.wedding_date)}
         </p>

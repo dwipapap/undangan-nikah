@@ -75,12 +75,12 @@ export function OpeningOverlay({
           Wedding Invitation
         </p>
         
-        <div className="flex items-center justify-center flex-wrap gap-x-4 mb-8">
-          <h1 className="script-heading text-5xl sm:text-7xl text-[#1e2733] leading-none capitalize">
+        <div className="flex flex-col items-center justify-center mb-8 space-y-2">
+          <h1 className="script-heading text-5xl sm:text-7xl text-[#d4af37] leading-none capitalize text-center drop-shadow-sm">
             {settings.groom_name}
           </h1>
-          <span className="script-heading text-4xl sm:text-5xl text-[#1e2733]">&</span>
-          <h1 className="script-heading text-5xl sm:text-7xl text-[#1e2733] leading-none capitalize">
+          <span className="script-heading text-4xl sm:text-5xl text-[#d4af37] drop-shadow-sm">&</span>
+          <h1 className="script-heading text-5xl sm:text-7xl text-[#d4af37] leading-none capitalize text-center drop-shadow-sm">
             {settings.bride_name}
           </h1>
         </div>
