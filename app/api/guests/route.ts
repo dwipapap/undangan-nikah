@@ -21,7 +21,21 @@ export async function POST(req: NextRequest) {
   const { name } = await req.json();
   if (!name || typeof name !== "string") return jsonError("Name is required");
   const supabase = await createClient();
-  const slug = generateSlug(name);
+  let slug = generateSlug(name);
+  
+  // Check if the base slug already exists to prevent unique constraint errors
+  const { data: existing } = await supabase
+    .from("guests")
+    .select("slug")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (existing) {
+    // Only append a random string if there is a collision
+    const random = Math.random().toString(36).slice(2, 6);
+    slug = `${slug}-${random}`;
+  }
+
   const { data, error } = await supabase
     .from("guests")
     .insert({ name, slug })

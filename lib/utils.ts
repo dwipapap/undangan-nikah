@@ -5,17 +5,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateSlug(name: string): string {
-  const base = name
+  return name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .slice(0, 40);
-  const random = Math.random().toString(36).slice(2, 6);
-  return `${base}-${random}`;
 }
 
 export function formatDateID(iso: string | null | undefined): string {
