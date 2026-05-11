@@ -25,10 +25,10 @@ export function HeroSection({ settings }: { settings: WeddingSettings }) {
           />
         </motion.div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-cream/90 via-cream/50 to-transparent" />
 
       <motion.div
-        className="absolute bottom-10 left-0 right-0 text-center text-cream px-6"
+        className="absolute bottom-10 left-0 right-0 text-center text-gold px-6"
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
