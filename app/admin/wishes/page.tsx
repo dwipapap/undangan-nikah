@@ -8,20 +8,18 @@ import {
   Card,
   ActionIcon,
   Group,
-  Badge,
   Loader,
   Center,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
-import { IconTrash, IconQuote } from "@tabler/icons-react";
+import { IconTrash, IconQuote, IconClock } from "@tabler/icons-react";
 import { DashboardShell } from "@/components/admin/DashboardShell";
 import { api } from "@/lib/api-client";
 
 interface Wish {
   id: string;
   name: string;
-  attendance: "PENDING" | "ATTENDING" | "NOT_ATTENDING";
   wishes: string;
   created_at: string;
 }
@@ -69,12 +67,6 @@ export default function WishesPage() {
     return new Date(iso).toLocaleString("id-ID");
   }
 
-  function statusBadge(s: Wish["attendance"]) {
-    if (s === "ATTENDING") return <Badge color="green" size="sm">Hadir</Badge>;
-    if (s === "NOT_ATTENDING") return <Badge color="red" size="sm">Tidak Hadir</Badge>;
-    return <Badge color="gray" size="sm">Pending</Badge>;
-  }
-
   return (
     <DashboardShell>
       <Stack gap="lg">
@@ -105,8 +97,8 @@ export default function WishesPage() {
                     <div style={{ flex: 1 }}>
                       <Group gap="xs">
                         <Text fw={600}>{w.name}</Text>
-                        {statusBadge(w.attendance)}
                         <Text size="xs" c="dimmed">
+                          <IconClock size={12} style={{ display: "inline", verticalAlign: "middle", marginRight: 2 }} />
                           {formatDate(w.created_at)}
                         </Text>
                       </Group>

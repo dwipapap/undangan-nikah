@@ -13,9 +13,7 @@ import {
 } from "@mantine/core";
 import {
   IconUsers,
-  IconUserCheck,
-  IconUserX,
-  IconClock,
+  IconMessage,
   IconSettings,
   IconPhoto,
   IconHeart,
@@ -26,25 +24,15 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminOverview() {
   const supabase = await createClient();
-  const [{ data: guests }, { data: settings }] = await Promise.all([
-    supabase.from("guests").select("attendance, number_of_guests"),
+  const [{ count: totalGuests }, { data: wishes }, { data: settings }] = await Promise.all([
+    supabase.from("guests").select("*", { count: "exact", head: true }),
+    supabase.from("wishes").select("id"),
     supabase.from("wedding_settings").select("groom_name, bride_name").limit(1).single(),
   ]);
 
-  const total = guests?.length ?? 0;
-  const attending = guests?.filter((g) => g.attendance === "ATTENDING").length ?? 0;
-  const notAttending = guests?.filter((g) => g.attendance === "NOT_ATTENDING").length ?? 0;
-  const pending = guests?.filter((g) => g.attendance === "PENDING").length ?? 0;
-  const totalGuests =
-    guests
-      ?.filter((g) => g.attendance === "ATTENDING")
-      .reduce((sum, g) => sum + (g.number_of_guests ?? 0), 0) ?? 0;
-
   const stats = [
-    { label: "Total Tamu", value: total, icon: IconUsers, color: "blue" },
-    { label: "Akan Hadir", value: attending, icon: IconUserCheck, color: "green" },
-    { label: "Tidak Hadir", value: notAttending, icon: IconUserX, color: "red" },
-    { label: "Belum Konfirmasi", value: pending, icon: IconClock, color: "yellow" },
+    { label: "Total Tamu", value: totalGuests ?? 0, icon: IconUsers, color: "blue" },
+    { label: "Total Ucapan Masuk", value: wishes?.length ?? 0, icon: IconMessage, color: "teal" },
   ];
 
   const links = [
@@ -67,7 +55,7 @@ export default async function AdminOverview() {
           </Text>
         </div>
 
-        <SimpleGrid cols={{ base: 2, sm: 4 }}>
+        <SimpleGrid cols={{ base: 2, sm: 3 }}>
           {stats.map((s) => {
             const Icon = s.icon;
             return (
@@ -89,16 +77,6 @@ export default async function AdminOverview() {
             );
           })}
         </SimpleGrid>
-
-        <Card withBorder p="md" radius="md">
-          <Text size="sm" c="dimmed" tt="uppercase" fw={600} mb="xs">
-            Estimasi Jumlah Hadirin
-          </Text>
-          <Title order={3}>{totalGuests} orang</Title>
-          <Text size="sm" c="dimmed">
-            (dari tamu yang sudah konfirmasi hadir)
-          </Text>
-        </Card>
 
         <div>
           <Title order={4} mb="sm" className="!font-serif">

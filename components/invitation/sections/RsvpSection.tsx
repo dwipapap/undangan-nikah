@@ -2,21 +2,18 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { motion } from "framer-motion";
-import { IconSend, IconHeart, IconCheck } from "@tabler/icons-react";
+import { IconSend, IconHeart } from "@tabler/icons-react";
 import type { Guest } from "@/lib/types";
 import { Reveal } from "../Reveal";
 
 interface Wish {
   id: string;
   name: string;
-  attendance: "PENDING" | "ATTENDING" | "NOT_ATTENDING";
   wishes: string;
   created_at: string;
 }
 
 export function RsvpSection({ guest }: { guest: Guest }) {
-  const [attendance, setAttendance] = useState<Guest["attendance"]>(guest.attendance);
-  const [count, setCount] = useState<number>(guest.number_of_guests || 1);
   const [wishes, setWishes] = useState<string>(guest.wishes ?? "");
   const [pending, startTransition] = useTransition();
   const [submitted, setSubmitted] = useState(false);
@@ -35,7 +32,7 @@ export function RsvpSection({ guest }: { guest: Guest }) {
       const res = await fetch(`/api/guests/${guest.id}/rsvp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ attendance, number_of_guests: count, wishes }),
+        body: JSON.stringify({ attendance: guest.attendance || "PENDING", number_of_guests: guest.number_of_guests || 1, wishes }),
       });
       if (res.ok) {
         setSubmitted(true);
@@ -53,9 +50,9 @@ export function RsvpSection({ guest }: { guest: Guest }) {
         <Reveal>
           <div className="text-center mb-10">
             <p className="text-gold tracking-widest text-sm uppercase">RSVP</p>
-            <p className="section-heading text-4xl sm:text-5xl mt-2">Konfirmasi Kehadiran</p>
+            <p className="section-heading text-4xl sm:text-5xl mt-2">Buku Tamu</p>
             <div className="ornament max-w-[160px] mx-auto mt-4 mb-4" />
-            <p className="text-muted">Mohon konfirmasi kehadiran Anda untuk membantu persiapan kami</p>
+            <p className="text-muted">Tuliskan ucapan dan doa untuk kedua mempelai</p>
           </div>
         </Reveal>
 
@@ -76,47 +73,6 @@ export function RsvpSection({ guest }: { guest: Guest }) {
 
             <div className="mb-5">
               <label className="block text-sm font-medium text-charcoal mb-2">
-                Apakah Anda akan hadir?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { val: "ATTENDING" as const, label: "Hadir" },
-                  { val: "NOT_ATTENDING" as const, label: "Tidak Hadir" },
-                ].map((o) => (
-                  <button
-                    key={o.val}
-                    type="button"
-                    onClick={() => setAttendance(o.val)}
-                    className={`px-4 py-3 rounded-xl border-2 transition text-sm font-medium ${
-                      attendance === o.val
-                        ? "border-gold bg-gold text-charcoal"
-                        : "border-gold/20 bg-white text-charcoal hover:border-gold/50"
-                    }`}
-                  >
-                    {o.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {attendance === "ATTENDING" && (
-              <div className="mb-5">
-                <label className="block text-sm font-medium text-charcoal mb-2">
-                  Jumlah tamu yang hadir
-                </label>
-                <input
-                  type="number"
-                  min={1}
-                  max={10}
-                  value={count}
-                  onChange={(e) => setCount(Number(e.target.value))}
-                  className="w-full bg-white border border-gold/30 focus:border-gold focus:outline-none rounded-xl px-4 py-3 text-charcoal"
-                />
-              </div>
-            )}
-
-            <div className="mb-5">
-              <label className="block text-sm font-medium text-charcoal mb-2">
                 Ucapan & Doa
               </label>
               <textarea
@@ -130,7 +86,7 @@ export function RsvpSection({ guest }: { guest: Guest }) {
 
             <button
               type="submit"
-              disabled={pending || attendance === "PENDING"}
+              disabled={pending || wishes.trim() === ""}
               className="w-full bg-charcoal text-cream py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-gold hover:text-charcoal transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {submitted ? (
@@ -139,7 +95,7 @@ export function RsvpSection({ guest }: { guest: Guest }) {
                 </>
               ) : (
                 <>
-                  <IconSend size={18} /> Kirim Konfirmasi
+                  <IconSend size={18} /> Kirim Ucapan
                 </>
               )}
             </button>
@@ -167,6 +123,9 @@ export function RsvpSection({ guest }: { guest: Guest }) {
                       </div>
                       <div className="flex-1">
                         <p className="font-medium text-charcoal text-sm">{w.name}</p>
+                        <p className="text-[10px] text-muted/70 mt-0.5">
+                          {new Date(w.created_at).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}
+                        </p>
                         <p className="text-muted text-sm mt-1 leading-relaxed">{w.wishes}</p>
                       </div>
                     </div>

@@ -9,7 +9,6 @@ import {
   Modal,
   Stack,
   Group,
-  Badge,
   ActionIcon,
   Tooltip,
   Text,
@@ -221,12 +220,6 @@ export default function GuestsPage() {
     );
   }, [guests, search]);
 
-  function statusBadge(status: Guest["attendance"]) {
-    if (status === "ATTENDING") return <Badge color="green">Hadir</Badge>;
-    if (status === "NOT_ATTENDING") return <Badge color="red">Tidak Hadir</Badge>;
-    return <Badge color="gray">Pending</Badge>;
-  }
-
   return (
     <DashboardShell>
       <Stack gap="lg">
@@ -270,8 +263,6 @@ export default function GuestsPage() {
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Th>Nama</Table.Th>
-                    <Table.Th>Status</Table.Th>
-                    <Table.Th>Jumlah</Table.Th>
                     <Table.Th>Ucapan</Table.Th>
                     <Table.Th>Link Undangan</Table.Th>
                     <Table.Th></Table.Th>
@@ -291,8 +282,6 @@ export default function GuestsPage() {
                             {g.slug}
                           </Text>
                         </Table.Td>
-                        <Table.Td>{statusBadge(g.attendance)}</Table.Td>
-                        <Table.Td>{g.number_of_guests}</Table.Td>
                         <Table.Td>
                           <Text size="sm" lineClamp={2} style={{ maxWidth: 200 }}>
                             {g.wishes ?? "-"}
