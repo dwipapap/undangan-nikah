@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { motion } from "framer-motion";
-import { IconSend, IconHeart } from "@tabler/icons-react";
+import { IconSend, IconHeart, IconCheck } from "@tabler/icons-react";
 import type { Guest } from "@/lib/types";
 import { Reveal } from "../Reveal";
 
