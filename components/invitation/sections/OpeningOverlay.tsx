@@ -76,11 +76,11 @@ export function OpeningOverlay({
         </p>
         
         <div className="flex flex-col items-center justify-center mb-8 space-y-2">
-          <h1 className="script-heading text-5xl sm:text-7xl text-[#d4af37] leading-none capitalize text-center drop-shadow-sm">
+          <h1 className="font-display font-medium text-5xl sm:text-7xl text-[#d4af37] leading-none capitalize text-center drop-shadow-sm">
             {settings.groom_name}
           </h1>
-          <span className="script-heading text-4xl sm:text-5xl text-[#d4af37] drop-shadow-sm">&</span>
-          <h1 className="script-heading text-5xl sm:text-7xl text-[#d4af37] leading-none capitalize text-center drop-shadow-sm">
+          <span className="font-display font-medium text-4xl sm:text-5xl text-[#d4af37] drop-shadow-sm">&</span>
+          <h1 className="font-display font-medium text-5xl sm:text-7xl text-[#d4af37] leading-none capitalize text-center drop-shadow-sm">
             {settings.bride_name}
           </h1>
         </div>

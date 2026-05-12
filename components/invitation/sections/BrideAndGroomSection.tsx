@@ -57,7 +57,7 @@ function PersonCard({
           </div>
         </div>
       )}
-      <h3 className="script-heading text-4xl sm:text-5xl mb-3">{name}</h3>
+      <h3 className="font-display font-medium italic text-4xl sm:text-5xl mb-3">{name}</h3>
       {(childOrder || fatherName || motherName) && (
         <p className="text-muted text-sm sm:text-base leading-relaxed max-w-xs mx-auto">
           {side === "left" ? "Putra" : "Putri"}{" "}

@@ -34,11 +34,11 @@ export function HeroSection({ settings }: { settings: WeddingSettings }) {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <div className="flex flex-col items-center justify-center mb-4 space-y-1">
-          <h1 className="script-heading text-5xl sm:text-6xl leading-none capitalize text-center">
+          <h1 className="font-display font-medium text-5xl sm:text-6xl leading-none capitalize text-center">
             {settings.groom_name}
           </h1>
-          <span className="script-heading text-4xl sm:text-5xl">&</span>
-          <h1 className="script-heading text-5xl sm:text-6xl leading-none capitalize text-center">
+          <span className="font-display font-medium text-4xl sm:text-5xl">&</span>
+          <h1 className="font-display font-medium text-5xl sm:text-6xl leading-none capitalize text-center">
             {settings.bride_name}
           </h1>
         </div>
