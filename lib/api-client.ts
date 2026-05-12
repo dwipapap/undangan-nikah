@@ -1,3 +1,5 @@
+import { createClient } from "@/lib/supabase/client";
+
 export async function api<T = unknown>(
   path: string,
   options: RequestInit = {}
@@ -17,13 +19,20 @@ export async function api<T = unknown>(
 }
 
 export async function uploadFile(file: File, folder = "misc"): Promise<{ url: string; path: string }> {
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("folder", folder);
-  const res = await fetch("/api/upload", { method: "POST", body: fd });
-  if (!res.ok) {
-    const d = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(d.error || "Upload failed");
+  const supabase = createClient();
+  const ext = file.name.split(".").pop() ?? "bin";
+  const filePath = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from("wedding-uploads")
+    .upload(filePath, file, {
+      upsert: false,
+    });
+
+  if (uploadError) {
+    throw new Error(uploadError.message || "Upload failed");
   }
-  return res.json();
+
+  const { data } = supabase.storage.from("wedding-uploads").getPublicUrl(filePath);
+  return { url: data.publicUrl, path: filePath };
 }
