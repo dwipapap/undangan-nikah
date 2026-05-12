@@ -22,7 +22,7 @@ export function WeFoundLoveSection({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8 }}
-              className="group relative w-full max-w-[400px] aspect-[4/5] overflow-hidden rounded-t-[100px] rounded-b-3xl shadow-xl border-4 border-white"
+              className="group relative shrink-0 w-[300px] sm:w-[350px] md:w-[400px] aspect-[4/5] overflow-hidden rounded-t-[100px] rounded-b-3xl shadow-xl border-4 border-white"
             >
               <Image
                 src={photos[0].image_url}
