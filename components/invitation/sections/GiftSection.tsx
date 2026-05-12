@@ -2,64 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { QRCodeSVG } from "qrcode.react";
-import { IconCopy, IconCheck, IconQrcode, IconGift, IconX } from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { IconCopy, IconCheck, IconGift } from "@tabler/icons-react";
 import type { GiftAccount } from "@/lib/types";
 import { Reveal } from "../Reveal";
 
-function QRModal({
-  account,
-  onClose,
-}: {
-  account: GiftAccount;
-  onClose: () => void;
-}) {
-  return (
-    <motion.div
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 px-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-    >
-      <motion.div
-        className="bg-cream rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl relative"
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.9 }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 p-2 rounded-full hover:bg-rose/40 transition"
-          aria-label="Tutup"
-        >
-          <IconX size={18} />
-        </button>
-        <p className="font-display text-2xl text-charcoal">{account.bank_name}</p>
-        <p className="text-muted text-sm mb-5">{account.account_holder}</p>
-        <div className="bg-white p-4 rounded-2xl inline-block shadow">
-          <QRCodeSVG
-            value={`${account.bank_name}|${account.account_number}|${account.account_holder}`}
-            size={200}
-            bgColor="#ffffff"
-            fgColor="#2C2C2C"
-            level="M"
-          />
-        </div>
-        <p className="font-mono mt-4 text-charcoal text-lg">{account.account_number}</p>
-        <p className="text-xs text-muted mt-3">
-          Scan QR atau salin nomor rekening untuk transfer
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 function AccountCard({ account, delay }: { account: GiftAccount; delay: number }) {
   const [copied, setCopied] = useState(false);
-  const [qrOpen, setQrOpen] = useState(false);
 
   async function copy() {
     try {
@@ -72,7 +21,6 @@ function AccountCard({ account, delay }: { account: GiftAccount; delay: number }
   }
 
   return (
-    <>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -107,20 +55,8 @@ function AccountCard({ account, delay }: { account: GiftAccount; delay: number }
             {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
             {copied ? "Tersalin!" : "Salin Nomor"}
           </button>
-          <button
-            onClick={() => setQrOpen(true)}
-            className="inline-flex items-center gap-1.5 bg-gold/15 text-charcoal hover:bg-gold transition px-4 py-2 rounded-full text-sm"
-          >
-            <IconQrcode size={14} />
-            QR
-          </button>
         </div>
       </motion.div>
-
-      <AnimatePresence>
-        {qrOpen && <QRModal account={account} onClose={() => setQrOpen(false)} />}
-      </AnimatePresence>
-    </>
   );
 }
 
