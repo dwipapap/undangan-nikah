@@ -41,7 +41,7 @@ export function LoveStorySection({ items }: { items: LoveStory[] }) {
           </div>
         </Reveal>
 
-        <div className="relative" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <div className="relative overflow-hidden" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
@@ -49,7 +49,7 @@ export function LoveStorySection({ items }: { items: LoveStory[] }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center bg-white/70 backdrop-blur rounded-3xl p-6 sm:p-10 border border-gold/20 shadow-md"
+              className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center content-center w-full min-h-[450px] md:min-h-[400px] bg-white/70 backdrop-blur rounded-3xl p-6 sm:p-10 border border-gold/20 shadow-md shrink-0"
             >
               {current.image_url && (
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
