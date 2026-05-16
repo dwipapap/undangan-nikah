@@ -37,7 +37,6 @@ function PersonCard({
             <Image src={photo} alt={name} fill sizes="240px" className="object-cover" />
           </div>
           
-          {/* Floral Ornament Placeholder */}
           <div 
             className={`absolute top-1/2 -translate-y-1/2 ${
               side === "left" ? "-left-16 sm:-left-24" : "-right-16 sm:-right-24"
@@ -46,13 +45,79 @@ function PersonCard({
               transform: side === "left" ? 'scaleX(-1)' : 'none',
             }}
           >
-            {/* You can replace this SVG with a real floral PNG ornament like the reference image */}
-            <svg viewBox="0 0 100 150" fill="currentColor" className="w-full h-full drop-shadow-md">
-              <path d="M50,150 C50,150 40,100 20,80 C0,60 10,30 30,20 C50,10 70,30 80,50 C90,70 100,100 50,150 Z" opacity="0.3"/>
-              <path d="M50,150 C50,150 60,110 80,90 C100,70 90,40 70,30 C50,20 30,40 20,60 C10,80 0,110 50,150 Z" opacity="0.5"/>
-              <circle cx="50" cy="50" r="15" fill="#d4af37" opacity="0.8"/>
-              <path d="M50,150 Q45,100 30,50" stroke="currentColor" strokeWidth="2" fill="none"/>
-              <path d="M50,150 Q55,100 70,50" stroke="currentColor" strokeWidth="2" fill="none"/>
+            <svg viewBox="0 0 100 160" fill="currentColor" className="w-full h-full drop-shadow-md">
+              {/* Main stem */}
+              <path d="M50,158 C46,130 56,105 50,80 C44,58 54,38 50,20" stroke="currentColor" strokeWidth="2.5" fill="none" opacity="0.5"/>
+              
+              {/* Curly tendrils */}
+              <path d="M50,80 C38,72 28,58 32,46 C36,36 44,38 42,46" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.3"/>
+              <path d="M50,110 C62,102 72,88 68,76 C64,66 56,68 58,76" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.3"/>
+              
+              {/* Top flower - full bloom */}
+              <g transform="translate(50,22)">
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.3"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.25" transform="rotate(30)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.25" transform="rotate(60)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(120)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(150)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.25" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(210)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(240)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(300)"/>
+                <ellipse cx="0" cy="-11" rx="8" ry="15" opacity="0.2" transform="rotate(330)"/>
+                <circle cx="0" cy="0" r="5" opacity="0.7"/>
+                <circle cx="2" cy="-2" r="1" opacity="0.9"/>
+                <circle cx="-2.5" cy="-0.5" r="1" opacity="0.9"/>
+                <circle cx="0.5" cy="3" r="1" opacity="0.9"/>
+              </g>
+              
+              {/* Secondary flower - side bloom */}
+              <g transform="translate(38,70) rotate(-20)">
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.3"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.25" transform="rotate(45)"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.2" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.2" transform="rotate(135)"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.25" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.2" transform="rotate(225)"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.2" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-8" rx="6" ry="11" opacity="0.2" transform="rotate(315)"/>
+                <circle cx="0" cy="0" r="3.5" opacity="0.7"/>
+                <circle cx="1" cy="-1" r="0.7" opacity="0.9"/>
+                <circle cx="-1.5" cy="0" r="0.7" opacity="0.9"/>
+              </g>
+              
+              {/* Small bud top-right */}
+              <g transform="translate(65,38)">
+                <path d="M0,0 C4,-4 7,-12 5,-18 C2,-12 0,-6 0,0Z" opacity="0.35"/>
+                <path d="M0,0 C-3,-5 -6,-12 -4,-17 C-1,-11 1,-5 0,0Z" opacity="0.25"/>
+                <path d="M0,0 C0,-4 1,-8 0,-12" stroke="currentColor" strokeWidth="0.6" fill="none" opacity="0.4"/>
+              </g>
+              
+              {/* Leaf 1 - right, upper */}
+              <g transform="translate(56,45) rotate(25)">
+                <path d="M0,0 C10,-9 24,-7 30,0 C24,9 10,11 0,0Z" opacity="0.3"/>
+                <path d="M0,0 C10,-3 24,-2 30,0" stroke="currentColor" strokeWidth="0.8" fill="none" opacity="0.45"/>
+                <path d="M10,-1 C12,3 14,5 16,1" stroke="currentColor" strokeWidth="0.4" fill="none" opacity="0.3"/>
+                <path d="M18,-1 C20,2 22,3 24,0" stroke="currentColor" strokeWidth="0.4" fill="none" opacity="0.3"/>
+              </g>
+              
+              {/* Leaf 2 - left, middle */}
+                  <g transform="translate(44,95) rotate(-30)">
+                <path d="M0,0 C-12,-10 -26,-8 -32,0 C-26,10 -12,12 0,0Z" opacity="0.25"/>
+                <path d="M0,0 C-12,-3 -26,-2 -32,0" stroke="currentColor" strokeWidth="0.8" fill="none" opacity="0.45"/>
+                <path d="M-10,-1 C-12,3 -14,5 -16,1" stroke="currentColor" strokeWidth="0.4" fill="none" opacity="0.3"/>
+                <path d="M-20,-1 C-22,2 -24,3 -26,0" stroke="currentColor" strokeWidth="0.4" fill="none" opacity="0.3"/>
+              </g>
+              
+              {/* Leaf 3 - right, lower */}
+              <g transform="translate(54,125) rotate(20)">
+                <path d="M0,0 C8,-8 20,-6 26,0 C20,8 8,10 0,0Z" opacity="0.25"/>
+                <path d="M0,0 C8,-2 20,-1 26,0" stroke="currentColor" strokeWidth="0.8" fill="none" opacity="0.45"/>
+                <path d="M8,0 C10,2 12,3 14,0" stroke="currentColor" strokeWidth="0.4" fill="none" opacity="0.3"/>
+                <path d="M16,0 C18,2 20,2 22,0" stroke="currentColor" strokeWidth="0.4" fill="none" opacity="0.3"/>
+              </g>
             </svg>
           </div>
         </div>
