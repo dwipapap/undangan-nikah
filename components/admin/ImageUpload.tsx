@@ -40,13 +40,27 @@ export function ImageUpload({
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
 
-  function handleFileSelect(file: File | null) {
+  async function handleFileSelect(file: File | null) {
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setSelectedFileUrl(url);
-    setCropModalOpened(true);
-    setZoom(1);
-    setCrop({ x: 0, y: 0 });
+
+    if (file.type.startsWith("image/")) {
+      const url = URL.createObjectURL(file);
+      setSelectedFileUrl(url);
+      setCropModalOpened(true);
+      setZoom(1);
+      setCrop({ x: 0, y: 0 });
+    } else {
+      setUploading(true);
+      try {
+        const { url } = await uploadFile(file, folder);
+        onChange(url);
+        notifications.show({ message: "Upload berhasil", color: "green" });
+      } catch (e) {
+        notifications.show({ message: (e as Error).message, color: "red" });
+      } finally {
+        setUploading(false);
+      }
+    }
   }
 
   const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
@@ -100,9 +114,16 @@ export function ImageUpload({
               borderRadius: 8,
               overflow: "hidden",
               background: "#f1f1f1",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <Image src={value} alt="upload" fill style={{ objectFit: "cover" }} />
+            {accept.startsWith("audio") ? (
+              <audio src={value} controls style={{ width: "90%" }} />
+            ) : (
+              <Image src={value} alt="upload" fill style={{ objectFit: "cover" }} />
+            )}
           </div>
         ) : (
           <div
@@ -130,6 +151,7 @@ export function ImageUpload({
                 leftSection={<IconUpload size={14} />}
                 variant="light"
                 size="xs"
+                loading={uploading}
               >
                 {value ? "Ganti" : "Upload"}
               </Button>
