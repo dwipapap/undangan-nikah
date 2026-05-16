@@ -65,7 +65,7 @@ export default function SettingsPage() {
     <DashboardShell>
       <Stack gap="lg">
         <Group justify="space-between">
-          <Title order={2} className="!font-serif">
+          <Title order={2}>
             Pengaturan Umum
           </Title>
           <Button
@@ -77,7 +77,7 @@ export default function SettingsPage() {
           </Button>
         </Group>
 
-        <Card withBorder p="lg" radius="md">
+        <Card withBorder p="lg" radius="md" bg="var(--mantine-color-body)">
           <Title order={4} mb="md">
             Hero & Tema
           </Title>
@@ -104,34 +104,32 @@ export default function SettingsPage() {
           <Title order={4} mb="md">
             Opening Overlay Assets
           </Title>
-          <Stack gap="md">
-            <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
-              <ImageUpload
-                label="Floral Top"
-                value={data.overlay_top_floral_image ?? null}
-                onChange={(url) => update("overlay_top_floral_image", url)}
-                folder="theme"
-                height={150}
-              />
-              <ImageUpload
-                label="Center Illustration (e.g., Ship)"
-                value={data.overlay_center_image ?? null}
-                onChange={(url) => update("overlay_center_image", url)}
-                folder="theme"
-                height={150}
-              />
-              <ImageUpload
-                label="Floral Bottom"
-                value={data.overlay_bottom_floral_image ?? null}
-                onChange={(url) => update("overlay_bottom_floral_image", url)}
-                folder="theme"
-                height={150}
-              />
-            </SimpleGrid>
-          </Stack>
+          <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
+            <ImageUpload
+              label="Floral Top"
+              value={data.overlay_top_floral_image ?? null}
+              onChange={(url) => update("overlay_top_floral_image", url)}
+              folder="theme"
+              height={150}
+            />
+            <ImageUpload
+              label="Center Illustration (e.g., Ship)"
+              value={data.overlay_center_image ?? null}
+              onChange={(url) => update("overlay_center_image", url)}
+              folder="theme"
+              height={150}
+            />
+            <ImageUpload
+              label="Floral Bottom"
+              value={data.overlay_bottom_floral_image ?? null}
+              onChange={(url) => update("overlay_bottom_floral_image", url)}
+              folder="theme"
+              height={150}
+            />
+          </SimpleGrid>
         </Card>
 
-        <Card withBorder p="lg" radius="md">
+        <div className="bg-soft-ivory rounded-lg p-6">
           <Title order={4} mb="md">
             Quote / Hadist
           </Title>
@@ -149,7 +147,7 @@ export default function SettingsPage() {
               onChange={(e) => update("quote_source", e.currentTarget.value)}
             />
           </Stack>
-        </Card>
+        </div>
 
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="md">
@@ -192,7 +190,7 @@ export default function SettingsPage() {
           </SimpleGrid>
         </Card>
 
-        <Card withBorder p="lg" radius="md">
+        <div className="bg-soft-ivory rounded-lg p-6">
           <Title order={4} mb="md">
             Mempelai Wanita
           </Title>
@@ -231,7 +229,7 @@ export default function SettingsPage() {
               />
             </Stack>
           </SimpleGrid>
-        </Card>
+        </div>
 
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="md">
@@ -244,7 +242,9 @@ export default function SettingsPage() {
             folder="theme"
             height={200}
           />
-          <Divider my="lg" />
+        </Card>
+
+        <Card withBorder p="lg" radius="md" bg="var(--mantine-color-body)">
           <Title order={4} mb="md">
             Acara — Akad Nikah
           </Title>
@@ -281,7 +281,9 @@ export default function SettingsPage() {
               onChange={(e) => update("akad_location", e.currentTarget.value)}
             />
           </SimpleGrid>
-          <Divider my="lg" />
+        </Card>
+
+        <Card withBorder p="lg" radius="md">
           <Title order={4} mb="md">
             Acara — Resepsi
           </Title>
@@ -317,7 +319,7 @@ export default function SettingsPage() {
           </SimpleGrid>
         </Card>
 
-        <Card withBorder p="lg" radius="md">
+        <div className="bg-soft-ivory rounded-lg p-6">
           <Title order={4} mb="md">
             Wedding Gift Message
           </Title>
@@ -327,7 +329,7 @@ export default function SettingsPage() {
             value={data.gift_message ?? ""}
             onChange={(e) => update("gift_message", e.currentTarget.value)}
           />
-        </Card>
+        </div>
 
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="md">

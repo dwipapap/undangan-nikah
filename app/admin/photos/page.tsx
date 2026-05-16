@@ -7,7 +7,7 @@ export default function PhotosPage() {
     <DashboardShell>
       <Stack gap="lg">
         <div>
-          <Title order={2} className="!font-serif">
+          <Title order={2}>
             Foto Couple
           </Title>
           <Text c="dimmed">Foto yang muncul di section &quot;We Found Love&quot;</Text>

@@ -57,7 +57,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         <Group h="100%" px="md" justify="space-between">
           <Group>
             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <Title order={4} className="!font-serif">
+            <Title order={4}>
               <span className="gold-text">Wedding</span> Admin
             </Title>
           </Group>
@@ -66,7 +66,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <Menu.Target>
               <UnstyledButton>
                 <Group gap="xs">
-                  <Avatar size="sm" color="yellow">
+                  <Avatar size="sm" color="gray">
                     {(session?.user?.email ?? "A")[0].toUpperCase()}
                   </Avatar>
                   <Text size="sm" visibleFrom="sm">

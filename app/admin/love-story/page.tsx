@@ -138,7 +138,7 @@ export default function LoveStoryPage() {
       <Stack gap="lg">
         <Group justify="space-between">
           <div>
-            <Title order={2} className="!font-serif">
+            <Title order={2}>
               Love Story
             </Title>
             <Text c="dimmed">Perjalanan cinta yang akan ditampilkan di section Love Story</Text>
@@ -153,11 +153,11 @@ export default function LoveStoryPage() {
             <Loader />
           </Center>
         ) : items.length === 0 ? (
-          <Card withBorder p="xl">
-            <Text ta="center" c="dimmed">
+          <div className="text-center py-16">
+            <Text c="dimmed">
               Belum ada cerita. Tambahkan minimal 1 milestone.
             </Text>
-          </Card>
+          </div>
         ) : (
           <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
             {items.map((it, idx) => (
@@ -170,7 +170,7 @@ export default function LoveStoryPage() {
                   </Card.Section>
                 )}
                 <Stack gap={4} mt="sm">
-                  <Text size="xs" c="yellow.8" fw={600} tt="uppercase">
+                  <Text size="xs" c="gray.6" fw={600} tt="uppercase">
                     {it.date}
                   </Text>
                   <Text fw={600}>{it.title}</Text>

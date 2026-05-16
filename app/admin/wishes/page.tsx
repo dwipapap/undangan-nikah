@@ -71,7 +71,7 @@ export default function WishesPage() {
     <DashboardShell>
       <Stack gap="lg">
         <div>
-          <Title order={2} className="!font-serif">
+          <Title order={2}>
             Ucapan Tamu
           </Title>
           <Text c="dimmed">Semua ucapan dan doa dari tamu undangan</Text>
@@ -82,18 +82,18 @@ export default function WishesPage() {
             <Loader />
           </Center>
         ) : items.length === 0 ? (
-          <Card withBorder p="xl">
-            <Text ta="center" c="dimmed">
+          <div className="text-center py-16">
+            <Text c="dimmed">
               Belum ada ucapan dari tamu.
             </Text>
-          </Card>
+          </div>
         ) : (
           <Stack gap="md">
             {items.map((w) => (
               <Card key={w.id} withBorder p="md" radius="md">
                 <Group justify="space-between" align="flex-start">
                   <Group align="flex-start" gap="sm" style={{ flex: 1 }}>
-                    <IconQuote size={20} className="text-amber-600 mt-1" />
+                    <IconQuote size={20} className="text-gold mt-1" />
                     <div style={{ flex: 1 }}>
                       <Group gap="xs">
                         <Text fw={600}>{w.name}</Text>

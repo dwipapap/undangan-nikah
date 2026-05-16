@@ -10,6 +10,7 @@ import {
   ThemeIcon,
   Stack,
   Anchor,
+  Divider,
 } from "@mantine/core";
 import {
   IconUsers,
@@ -18,6 +19,7 @@ import {
   IconPhoto,
   IconHeart,
   IconGift,
+  IconArrowRight,
 } from "@tabler/icons-react";
 
 export const dynamic = "force-dynamic";
@@ -31,8 +33,8 @@ export default async function AdminOverview() {
   ]);
 
   const stats = [
-    { label: "Total Tamu", value: totalGuests ?? 0, icon: IconUsers, color: "blue" },
-    { label: "Total Ucapan Masuk", value: wishes?.length ?? 0, icon: IconMessage, color: "teal" },
+    { label: "Total Tamu", value: totalGuests ?? 0, icon: IconUsers },
+    { label: "Total Ucapan Masuk", value: wishes?.length ?? 0, icon: IconMessage },
   ];
 
   const links = [
@@ -47,29 +49,29 @@ export default async function AdminOverview() {
     <DashboardShell>
       <Stack gap="xl">
         <div>
-          <Title order={2} className="!font-serif">
+          <Title order={2}>
             Selamat datang
           </Title>
-          <Text c="dimmed">
+          <Text c="dimmed" size="sm">
             {settings ? `${settings.groom_name} & ${settings.bride_name}` : "Wedding Invitation"}
           </Text>
         </div>
 
-        <SimpleGrid cols={{ base: 2, sm: 3 }}>
+        <SimpleGrid cols={{ base: 2 }}>
           {stats.map((s) => {
             const Icon = s.icon;
             return (
-              <Card key={s.label} withBorder p="md" radius="md">
-                <Group justify="space-between">
+              <Card key={s.label} withBorder p="lg" radius="md" bg="var(--mantine-color-body)">
+                <Group justify="space-between" align="flex-start">
                   <div>
                     <Text size="xs" c="dimmed" tt="uppercase" fw={600}>
                       {s.label}
                     </Text>
-                    <Text size="xl" fw={700} mt={4}>
+                    <Text fz={28} fw={700} mt={4} lh={1}>
                       {s.value}
                     </Text>
                   </div>
-                  <ThemeIcon color={s.color} variant="light" size="lg" radius="md">
+                  <ThemeIcon color="gray" variant="light" size="lg" radius="md">
                     <Icon size={20} />
                   </ThemeIcon>
                 </Group>
@@ -78,11 +80,13 @@ export default async function AdminOverview() {
           })}
         </SimpleGrid>
 
+        <Divider />
+
         <div>
-          <Title order={4} mb="sm" className="!font-serif">
-            Quick Links
-          </Title>
-          <SimpleGrid cols={{ base: 2, sm: 3, md: 5 }}>
+          <Text fw={600} size="sm" tt="uppercase" c="dimmed" mb="md">
+            Kelola
+          </Text>
+          <Stack gap={4}>
             {links.map((l) => {
               const Icon = l.icon;
               return (
@@ -91,21 +95,24 @@ export default async function AdminOverview() {
                   component={Link}
                   href={l.href}
                   underline="never"
+                  c="dark"
                 >
-                  <Card withBorder p="md" radius="md" className="hover:shadow-md transition">
-                    <Stack align="center" gap="xs">
-                      <ThemeIcon color="yellow" variant="light" size="xl" radius="md">
-                        <Icon size={22} />
-                      </ThemeIcon>
-                      <Text size="sm" fw={500} ta="center">
-                        {l.label}
-                      </Text>
-                    </Stack>
-                  </Card>
+                  <Group
+                    py="sm"
+                    px="md"
+                    gap="sm"
+                    className="rounded-md hover:bg-[var(--mantine-color-gray-0)] transition"
+                  >
+                    <Icon size={18} className="text-gold" />
+                    <Text size="sm" fw={500} style={{ flex: 1 }}>
+                      {l.label}
+                    </Text>
+                    <IconArrowRight size={14} className="text-muted" />
+                  </Group>
                 </Anchor>
               );
             })}
-          </SimpleGrid>
+          </Stack>
         </div>
       </Stack>
     </DashboardShell>

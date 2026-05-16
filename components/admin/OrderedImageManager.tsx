@@ -168,11 +168,11 @@ export function OrderedImageManager({ endpoint, folder, emptyMessage, maxItems }
           <Loader />
         </Center>
       ) : items.length === 0 ? (
-        <Card withBorder p="xl">
-          <Text ta="center" c="dimmed">
+        <div className="text-center py-16">
+          <Text c="dimmed">
             {emptyMessage}
           </Text>
-        </Card>
+        </div>
       ) : (
         <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }}>
           {items.map((it, idx) => (

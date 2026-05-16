@@ -7,7 +7,7 @@ export default function GalleryPage() {
     <DashboardShell>
       <Stack gap="lg">
         <div>
-          <Title order={2} className="!font-serif">
+          <Title order={2}>
             Gallery
           </Title>
           <Text c="dimmed">Foto-foto pre-wedding & dokumentasi</Text>

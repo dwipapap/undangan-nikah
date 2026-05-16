@@ -224,7 +224,7 @@ export default function GuestsPage() {
     <DashboardShell>
       <Stack gap="lg">
         <Group justify="space-between" align="center">
-          <Title order={2} className="!font-serif">
+          <Title order={2}>
             Manajemen Tamu
           </Title>
           <Group gap="sm">
@@ -240,25 +240,99 @@ export default function GuestsPage() {
           </Group>
         </Group>
 
-        <Card withBorder p="md" radius="md">
-          <TextInput
-            placeholder="Cari nama atau slug..."
-            leftSection={<IconSearch size={14} />}
-            value={search}
-            onChange={(e) => setSearch(e.currentTarget.value)}
-            mb="md"
-          />
+        <TextInput
+          placeholder="Cari nama atau slug..."
+          leftSection={<IconSearch size={14} />}
+          value={search}
+          onChange={(e) => setSearch(e.currentTarget.value)}
+        />
 
-          {loading ? (
-            <Center h={200}>
-              <Loader />
-            </Center>
-          ) : filtered.length === 0 ? (
-            <Text ta="center" c="dimmed" py="xl">
-              Belum ada tamu. Klik "Tambah Tamu" atau "Import Excel" untuk mulai.
-            </Text>
-          ) : (
-            <Table.ScrollContainer minWidth={800}>
+        {loading ? (
+          <Center h={200}>
+            <Loader />
+          </Center>
+        ) : filtered.length === 0 ? (
+          <Text ta="center" c="dimmed" py="xl">
+            Belum ada tamu. Klik "Tambah Tamu" atau "Import Excel" untuk mulai.
+          </Text>
+        ) : (
+          <>
+            {/* Mobile: stacked cards */}
+            <Stack gap="sm" hiddenFrom="sm">
+              {filtered.map((g) => {
+                const link = `${origin}/${g.slug}`;
+                const waMessage = generateWaMessage(g.name, link);
+                const waLink = `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
+
+                return (
+                  <div key={g.id} className="bg-soft-ivory rounded-lg p-4">
+                    <Group justify="space-between" align="flex-start" mb="sm">
+                      <div style={{ flex: 1 }}>
+                        <Text fw={600} size="sm">{g.name}</Text>
+                        <Text size="xs" c="dimmed">{g.slug}</Text>
+                      </div>
+                      <ActionIcon color="red" variant="subtle" onClick={() => deleteGuest(g)}>
+                        <IconTrash size={14} />
+                      </ActionIcon>
+                    </Group>
+
+                    <Group gap="xs" mb="sm">
+                      <CopyButton value={link}>
+                        {({ copied, copy }) => (
+                          <Tooltip label={copied ? "Link Tersalin!" : "Copy Link"}>
+                            <ActionIcon variant="light" onClick={copy}>
+                              {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
+                            </ActionIcon>
+                          </Tooltip>
+                        )}
+                      </CopyButton>
+
+                      <CopyButton value={waMessage}>
+                        {({ copied, copy }) => (
+                          <Tooltip label={copied ? "Pesan Tersalin!" : "Copy Pesan WA"}>
+                            <ActionIcon variant="light" onClick={copy}>
+                              {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
+                            </ActionIcon>
+                          </Tooltip>
+                        )}
+                      </CopyButton>
+
+                      <Tooltip label="Share via WhatsApp">
+                        <ActionIcon
+                          component="a"
+                          href={waLink}
+                          target="_blank"
+                          variant="light"
+                          color="green"
+                        >
+                          <IconBrandWhatsapp size={14} />
+                        </ActionIcon>
+                      </Tooltip>
+
+                      <Tooltip label="Buka link">
+                        <ActionIcon
+                          component="a"
+                          href={`/${g.slug}`}
+                          target="_blank"
+                          variant="light"
+                        >
+                          <IconExternalLink size={14} />
+                        </ActionIcon>
+                      </Tooltip>
+                    </Group>
+
+                    {g.wishes && (
+                      <Text size="sm" c="dimmed" lineClamp={2}>
+                        {g.wishes}
+                      </Text>
+                    )}
+                  </div>
+                );
+              })}
+            </Stack>
+
+            {/* Desktop: table */}
+            <Table.ScrollContainer minWidth={800} visibleFrom="sm">
               <Table verticalSpacing="sm" striped highlightOnHover>
                 <Table.Thead>
                   <Table.Tr>
@@ -292,11 +366,7 @@ export default function GuestsPage() {
                             <CopyButton value={link}>
                               {({ copied, copy }) => (
                                 <Tooltip label={copied ? "Link Tersalin!" : "Copy Link"}>
-                                  <ActionIcon
-                                    variant="light"
-                                    color={copied ? "green" : "blue"}
-                                    onClick={copy}
-                                  >
+                                  <ActionIcon variant="light" onClick={copy}>
                                     {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
                                   </ActionIcon>
                                 </Tooltip>
@@ -306,11 +376,7 @@ export default function GuestsPage() {
                             <CopyButton value={waMessage}>
                               {({ copied, copy }) => (
                                 <Tooltip label={copied ? "Pesan Tersalin!" : "Copy Pesan WA"}>
-                                  <ActionIcon
-                                    variant="light"
-                                    color={copied ? "teal" : "gray"}
-                                    onClick={copy}
-                                  >
+                                  <ActionIcon variant="light" onClick={copy}>
                                     {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
                                   </ActionIcon>
                                 </Tooltip>
@@ -352,8 +418,8 @@ export default function GuestsPage() {
                 </Table.Tbody>
               </Table>
             </Table.ScrollContainer>
-          )}
-        </Card>
+          </>
+        )}
       </Stack>
 
       <Modal opened={opened} onClose={close} title="Tambah Tamu" centered>

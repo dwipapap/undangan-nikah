@@ -137,7 +137,7 @@ export default function GiftPage() {
       <Stack gap="lg">
         <Group justify="space-between">
           <div>
-            <Title order={2} className="!font-serif">
+            <Title order={2}>
               Wedding Gift
             </Title>
             <Text c="dimmed">Rekening untuk transfer hadiah dari tamu</Text>
@@ -152,11 +152,11 @@ export default function GiftPage() {
             <Loader />
           </Center>
         ) : items.length === 0 ? (
-          <Card withBorder p="xl">
-            <Text ta="center" c="dimmed">
+          <div className="text-center py-16">
+            <Text c="dimmed">
               Belum ada rekening.
             </Text>
-          </Card>
+          </div>
         ) : (
           <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
             {items.map((it, idx) => (

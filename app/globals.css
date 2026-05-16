@@ -53,12 +53,14 @@ body {
   height: 100dvh;
 }
 
-/* Subtle gold gradient text */
+/* Solid gold accent — never gradient */
 .gold-text {
-  background: linear-gradient(135deg, #383f54 0%, #525a73 50%, #252a38 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-gold);
+}
+
+/* Admin surface: cool neutral for tool surfaces */
+.admin-surface {
+  background: #f8f7f4;
 }
 
 /* Lightbox fix for body */

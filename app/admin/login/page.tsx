@@ -38,15 +38,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-ivory via-cream to-rose px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-soft-ivory via-warm-parchment to-rose-dust px-4">
       <Container size="xs" w="100%">
         <Paper shadow="md" radius="lg" p="xl" withBorder>
           <Stack gap="lg">
             <div className="text-center">
-              <div className="inline-flex p-3 rounded-full bg-amber-100 mb-3">
-                <IconLock size={28} className="text-amber-700" />
+              <div className="inline-flex p-3 rounded-full bg-rose-dust mb-3">
+                <IconLock size={28} className="text-gold" />
               </div>
-              <Title order={2} className="!font-serif">
+              <Title order={2}>
                 Admin Login
               </Title>
               <Text size="sm" c="dimmed">
