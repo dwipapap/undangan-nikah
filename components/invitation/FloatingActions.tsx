@@ -69,7 +69,7 @@ export function FloatingActions({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.6 }}
             onClick={scrollTop}
-            className="bg-charcoal text-cream rounded-full p-3 shadow-lg hover:bg-gold hover:text-charcoal transition"
+            className="rounded-full p-3 shadow-lg transition-all duration-300 bg-rose/60 text-cream hover:bg-script-gold hover:text-charcoal shadow-rose/20 hover:shadow-script-gold/25"
             aria-label="Scroll to top"
           >
             <IconArrowUp size={18} />
@@ -78,25 +78,36 @@ export function FloatingActions({
       </AnimatePresence>
 
       {musicUrl && (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          onClick={toggleMusic}
-          className={`rounded-full p-3 shadow-lg transition ${
-            playing ? "bg-gold text-charcoal" : "bg-charcoal text-cream"
-          }`}
-          aria-label={playing ? "Pause music" : "Play music"}
-        >
-          {playing ? (
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-              <IconMusic size={18} />
-            </motion.div>
-          ) : (
-            <IconPlayerPause size={18} />
+        <div className="relative">
+          {playing && (
+            <motion.span
+              className="absolute inset-0 rounded-full ring-2 ring-gold/60"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
           )}
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            onClick={toggleMusic}
+            className={`relative rounded-full p-3 shadow-lg transition-all duration-300 ${
+              playing
+                ? "bg-script-gold text-charcoal shadow-script-gold/25"
+                : "bg-rose/60 text-cream hover:bg-script-gold hover:text-charcoal shadow-rose/20 hover:shadow-script-gold/25"
+            }`}
+            aria-label={playing ? "Pause music" : "Play music"}
+          >
+            {playing ? (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                <IconMusic size={18} />
+              </motion.div>
+            ) : (
+              <IconPlayerPause size={18} />
+            )}
+          </motion.button>
+        </div>
       )}
     </div>
   );
