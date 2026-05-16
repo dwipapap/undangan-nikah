@@ -24,7 +24,7 @@ export function Footer({ settings }: { settings: WeddingSettings }) {
             <p className="italic text-sm tracking-wide text-center mb-2 text-cream/80">
               Kami Yang Berbahagia,
             </p>
-            <p className="font-script text-4xl md:text-5xl text-center leading-none text-cream">
+            <p className="font-script text-2xl md:text-4xl text-center leading-none text-cream">
               {settings.groom_name} & {settings.bride_name}
             </p>
           </div>
@@ -35,19 +35,19 @@ export function Footer({ settings }: { settings: WeddingSettings }) {
             </p>
             
             <div className="flex justify-center gap-4 mt-4">
-              <a href="#" className="w-10 h-10 rounded-full flex items-center justify-center bg-cream text-gold hover:scale-110 transition-all duration-200">
+              <a href="https://instagram.com/ankaproject.id" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-cream text-gold hover:scale-110 transition-all duration-200">
                 <IconBrandInstagram size={20} stroke={2} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full flex items-center justify-center bg-cream text-gold hover:scale-110 transition-all duration-200">
+              <a href="https://wa.me/6282364384639" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-cream text-gold hover:scale-110 transition-all duration-200">
                 <IconBrandWhatsapp size={20} stroke={2} />
               </a>
             </div>
 
             <p className="text-sm text-center mt-4 text-cream/80">
-              Vendor Name
+              Anka Project
             </p>
             <p className="text-xs text-center mt-1 text-cream/60">
-              @vendor_ig | +62 812 3456 7890
+              @dwipaa11 | +62 895 0416 6115
             </p>
           </div>
         </motion.div>
