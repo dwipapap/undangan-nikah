@@ -49,7 +49,7 @@ export function LoveStorySection({ items }: { items: LoveStory[] }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center content-center w-full min-h-[450px] md:min-h-[400px] bg-white/70 backdrop-blur rounded-3xl p-6 sm:p-10 border border-gold/20 shadow-md shrink-0"
+              className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center content-center w-full h-[800px] md:h-[720px] bg-white/70 backdrop-blur rounded-3xl p-6 sm:p-10 border border-gold/20 shadow-md shrink-0 overflow-hidden"
             >
               {current.image_url && (
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
@@ -62,7 +62,7 @@ export function LoveStorySection({ items }: { items: LoveStory[] }) {
                   />
                 </div>
               )}
-              <div className={current.image_url ? "" : "md:col-span-2 text-center"}>
+              <div className={current.image_url ? "self-center" : "md:col-span-2 text-center self-center"}>
                 <p className="text-gold uppercase tracking-widest text-xs sm:text-sm mb-2">
                   {current.date}
                 </p>
