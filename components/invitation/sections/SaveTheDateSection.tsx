@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { IconCalendarPlus } from "@tabler/icons-react";
 import type { WeddingSettings } from "@/lib/types";
 import { googleCalendarUrl, formatDateID } from "@/lib/utils";
@@ -8,13 +9,30 @@ import { Reveal } from "../Reveal";
 
 function CountdownBox({ label, value }: { label: string; value: number }) {
   return (
-    <div className="bg-white/70 backdrop-blur rounded-xl border border-gold/30 p-3 sm:p-5 min-w-[68px] sm:min-w-[90px] text-center shadow-sm">
-      <div className="text-3xl sm:text-5xl font-display text-charcoal tabular-nums">
-        {String(value).padStart(2, "0")}
+    <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+      <div className="relative w-[64px] h-[64px] sm:w-[80px] sm:h-[80px]">
+        {/* Glow */}
+        <div className="absolute inset-0 rounded-full bg-gold/10 blur-sm" />
+        {/* Outer ring */}
+        <div className="absolute inset-0 rounded-full border border-gold/40 bg-white/20 shadow-sm" />
+        {/* Inner delicate ring */}
+        <div className="absolute inset-[3px] rounded-full border border-gold/[0.15]" />
+        {/* Number */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.span
+            key={value}
+            initial={{ y: 8, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="font-display text-2xl sm:text-[28px] text-charcoal tabular-nums leading-none"
+          >
+            {String(value).padStart(2, "0")}
+          </motion.span>
+        </div>
       </div>
-      <div className="text-[10px] sm:text-xs uppercase tracking-widest text-gold mt-1">
+      <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.25em] text-gold/70 font-medium">
         {label}
-      </div>
+      </span>
     </div>
   );
 }
@@ -53,14 +71,15 @@ export function SaveTheDateSection({ settings }: { settings: WeddingSettings }) 
           <p className="text-muted mb-10">{formatDateID(settings.wedding_date)}</p>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <div className="flex justify-center gap-2 sm:gap-4 mb-10">
-            <CountdownBox label="Hari" value={days} />
-            <CountdownBox label="Jam" value={hours} />
-            <CountdownBox label="Menit" value={minutes} />
-            <CountdownBox label="Detik" value={seconds} />
-          </div>
-        </Reveal>
+        <div className="flex justify-center items-start gap-0 sm:gap-1 mb-10">
+          <CountdownBox label="Hari" value={days} />
+          <span className="self-center mt-3 sm:mt-4 text-gold/20 text-sm sm:text-base">✦</span>
+          <CountdownBox label="Jam" value={hours} />
+          <span className="self-center mt-3 sm:mt-4 text-gold/20 text-sm sm:text-base">✦</span>
+          <CountdownBox label="Menit" value={minutes} />
+          <span className="self-center mt-3 sm:mt-4 text-gold/20 text-sm sm:text-base">✦</span>
+          <CountdownBox label="Detik" value={seconds} />
+        </div>
 
         {calUrl && (
           <Reveal delay={0.2}>
