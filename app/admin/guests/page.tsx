@@ -17,7 +17,8 @@ import {
   Center,
   CopyButton,
   FileInput,
-  ScrollArea
+  ScrollArea,
+  Menu
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -135,6 +136,50 @@ export default function GuestsPage() {
     });
   }
 
+  function deleteAllGuests() {
+    modals.openConfirmModal({
+      title: "Hapus Semua Tamu?",
+      children: (
+        <Text size="sm">
+          Apakah Anda yakin ingin menghapus <b>seluruh</b> tamu? Aksi ini tidak dapat dibatalkan.
+        </Text>
+      ),
+      labels: { confirm: "Hapus Semua Tamu", cancel: "Batal" },
+      confirmProps: { color: "red" },
+      onConfirm: async () => {
+        try {
+          await api("/api/guests", { method: "DELETE" });
+          notifications.show({ message: "Seluruh tamu berhasil dihapus", color: "green" });
+          refresh();
+        } catch (e) {
+          notifications.show({ message: (e as Error).message, color: "red" });
+        }
+      },
+    });
+  }
+
+  function deleteAllWishes() {
+    modals.openConfirmModal({
+      title: "Hapus Semua Ucapan?",
+      children: (
+        <Text size="sm">
+          Apakah Anda yakin ingin menghapus <b>seluruh</b> ucapan tamu? Aksi ini tidak dapat dibatalkan.
+        </Text>
+      ),
+      labels: { confirm: "Hapus Semua Ucapan", cancel: "Batal" },
+      confirmProps: { color: "red" },
+      onConfirm: async () => {
+        try {
+          await api("/api/wishes", { method: "DELETE" });
+          notifications.show({ message: "Seluruh ucapan berhasil dihapus", color: "green" });
+          refresh();
+        } catch (e) {
+          notifications.show({ message: (e as Error).message, color: "red" });
+        }
+      },
+    });
+  }
+
   const handleFileChange = async (payload: File | null) => {
     setFile(payload);
     setParsedNames([]);
@@ -228,6 +273,31 @@ export default function GuestsPage() {
             Manajemen Tamu
           </Title>
           <Group gap="sm">
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+                <Button variant="light" color="red" leftSection={<IconTrash size={16} />}>
+                  Hapus
+                </Button>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  leftSection={<IconTrash size={14} />}
+                  color="red"
+                  onClick={deleteAllGuests}
+                  disabled={guests.length === 0}
+                >
+                  Hapus Semua Tamu
+                </Menu.Item>
+                <Menu.Item
+                  leftSection={<IconTrash size={14} />}
+                  color="orange"
+                  onClick={deleteAllWishes}
+                  disabled={guests.length === 0}
+                >
+                  Hapus Semua Ucapan
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
             <Button variant="light" leftSection={<IconUpload size={16} />} onClick={openImport}>
               Import Excel
             </Button>

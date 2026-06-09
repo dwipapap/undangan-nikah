@@ -10,6 +10,7 @@ import {
   Group,
   Loader,
   Center,
+  Button,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
@@ -63,6 +64,28 @@ export default function WishesPage() {
     });
   }
 
+  function deleteAll() {
+    modals.openConfirmModal({
+      title: "Hapus semua ucapan?",
+      children: (
+        <Text size="sm">
+          Apakah Anda yakin ingin menghapus <b>seluruh</b> ucapan tamu? Aksi ini tidak dapat dibatalkan.
+        </Text>
+      ),
+      labels: { confirm: "Hapus Semua", cancel: "Batal" },
+      confirmProps: { color: "red" },
+      onConfirm: async () => {
+        try {
+          await api("/api/wishes", { method: "DELETE" });
+          notifications.show({ message: "Seluruh ucapan berhasil dihapus", color: "green" });
+          refresh();
+        } catch (e) {
+          notifications.show({ message: (e as Error).message, color: "red" });
+        }
+      },
+    });
+  }
+
   function formatDate(iso: string) {
     return new Date(iso).toLocaleString("id-ID");
   }
@@ -70,12 +93,19 @@ export default function WishesPage() {
   return (
     <DashboardShell>
       <Stack gap="lg">
-        <div>
-          <Title order={2}>
-            Ucapan Tamu
-          </Title>
-          <Text c="dimmed">Semua ucapan dan doa dari tamu undangan</Text>
-        </div>
+        <Group justify="space-between" align="center">
+          <div>
+            <Title order={2}>
+              Ucapan Tamu
+            </Title>
+            <Text c="dimmed">Semua ucapan dan doa dari tamu undangan</Text>
+          </div>
+          {items.length > 0 && (
+            <Button color="red" variant="light" leftSection={<IconTrash size={16} />} onClick={deleteAll}>
+              Hapus Semua
+            </Button>
+          )}
+        </Group>
 
         {loading ? (
           <Center h={240}>

@@ -72,3 +72,18 @@ export async function POST(req: NextRequest) {
   if (error) return jsonError(error.message, 500);
   return NextResponse.json(data);
 }
+
+export async function DELETE(req: NextRequest) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+  
+  const supabase = await createClient();
+  
+  const { error } = await supabase
+    .from("guests")
+    .delete()
+    .neq("id", "00000000-0000-0000-0000-000000000000"); // A dummy condition to delete all since Supabase requires a filter for deletes
+    
+  if (error) return jsonError(error.message, 500);
+  return NextResponse.json({ ok: true });
+}
